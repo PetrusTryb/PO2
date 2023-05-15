@@ -13,7 +13,7 @@ public class Fox extends Animal{
     public void action() {
         increaseAge();
         Vec2[] allowedMoves = world.getAllowedMoves();
-        for(int move = random(0,allowedMoves.length-1); move<=8; move++){
+        for(int move = random(0,allowedMoves.length-1); move<=world.getAllowedMoves().length*2; move++){
             if(!world.isInBounds(getPosition().add(allowedMoves[move%world.getAllowedMoves().length])))
                 continue;
             if(world.getOrganism(getPosition().add(allowedMoves[move%world.getAllowedMoves().length]))==null){

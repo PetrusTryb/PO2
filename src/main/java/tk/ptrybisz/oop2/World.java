@@ -1,13 +1,11 @@
 package tk.ptrybisz.oop2;
 
-import com.almasb.fxgl.app.scene.GameScene;
 import com.almasb.fxgl.core.math.Vec2;
 import javafx.scene.text.Text;
 import tk.ptrybisz.oop2.organisms.Organism;
 import tk.ptrybisz.oop2.organisms.animals.Human;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
 import static com.almasb.fxgl.dsl.FXGLForKtKt.random;
@@ -23,10 +21,10 @@ public abstract class World implements Serializable {
     ArrayList<Organism> organisms;
     Vec2 initialPosition;
      static World currentInstance = null;
-     static public World getInstance(String name, int sA, int sB) {
+     static public World getInstance(String name, int width, int height) {
             currentInstance = switch (name) {
-                case "Rectangle" -> new RectangleWorld(sA, sB);
-                case "Hexagon" -> new HexagonWorld(sA, sB);
+                case "Rectangle" -> new RectangleWorld(width, height);
+                case "Hexagon" -> new HexagonWorld(width, height);
                 default -> null;
             };
             return currentInstance;
@@ -34,6 +32,14 @@ public abstract class World implements Serializable {
 
     static public World getInstance() {
         return currentInstance;
+    }
+
+    static public World toggleType(){
+         if(currentInstance instanceof RectangleWorld)
+             currentInstance = new HexagonWorld(currentInstance.width, currentInstance.height);
+         else
+             currentInstance = new RectangleWorld(currentInstance.width, currentInstance.height);
+         return currentInstance;
     }
 
     public void nextTurn(){

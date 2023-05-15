@@ -10,15 +10,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import tk.ptrybisz.oop2.organisms.Organism;
 import tk.ptrybisz.oop2.organisms.animals.Animal;
-import tk.ptrybisz.oop2.organisms.animals.Human;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import static com.almasb.fxgl.dsl.FXGLForKtKt.random;
 
 public class RectangleWorld extends World implements Serializable {
     transient Rectangle[][] board;
@@ -75,6 +72,7 @@ public class RectangleWorld extends World implements Serializable {
         }
         logger = new Text();
         logger.setTranslateY(10);
+        logger.setFont(Font.font("Comic Sans",15));
         FXGL.getGameScene().addUINode(logger);
         for(int i = 0; i<width; i++)
             for(int j = 0; j<height; j++)

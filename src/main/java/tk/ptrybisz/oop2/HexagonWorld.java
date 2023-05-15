@@ -6,8 +6,6 @@ import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import tk.ptrybisz.oop2.organisms.Organism;
@@ -22,7 +20,7 @@ import java.util.ArrayList;
 public class HexagonWorld extends World implements Serializable{
 
     transient Polygon[][] board;
-    final Vec2[] directions = {new Vec2(0, 1), new Vec2(0,-1), new Vec2(-1, 1), new Vec2(-1, -1), new Vec2(1, 1), new Vec2(1, -1)};
+    final Vec2[] directions = {new Vec2(0, 1), new Vec2(0,-1), new Vec2(-1, 1), new Vec2(1, -1), new Vec2(1, 0), new Vec2(-1, 0)};
 
     public HexagonWorld(int width, int height) {
         this.width = width;
@@ -48,7 +46,7 @@ public class HexagonWorld extends World implements Serializable{
                         (double) (initialPosition.x + i * 20 + 10), (double) (initialPosition.y + j * 20 + 20),
                         (double) (initialPosition.x + i * 20), (double) (initialPosition.y + j * 20 + 15),
                         (double) (initialPosition.x + i * 20), (double) (initialPosition.y + j * 20 + 5));
-                board[i][j].setTranslateX(j%2*10);
+                board[i][j].setTranslateX(j*10);
                 board[i][j].setStroke(Color.BLACK);
                 board[i][j].setUserData(new Vec2(i, j));
                 board[i][j].setOnMouseClicked(e -> {
@@ -71,7 +69,7 @@ public class HexagonWorld extends World implements Serializable{
                 });
                 FXGL.getGameScene().addUINode(board[i][j]);
                 labels[i][j] = new Text();
-                labels[i][j].setTranslateX(initialPosition.x + i * 20 + j%2*10);
+                labels[i][j].setTranslateX(initialPosition.x + i * 20 + j*10);
                 labels[i][j].setTranslateY(initialPosition.y + j * 20 + 17);
                 labels[i][j].setFill(Color.WHITE);
                 labels[i][j].setFont(Font.font("DejaVu Sans Mono",20));
@@ -80,6 +78,7 @@ public class HexagonWorld extends World implements Serializable{
         }
         logger = new Text();
         logger.setTranslateY(10);
+        logger.setFont(Font.font("Comic Sans",15));
         FXGL.getGameScene().addUINode(logger);
         for(int i = 0; i<width; i++)
             for(int j = 0; j<height; j++)

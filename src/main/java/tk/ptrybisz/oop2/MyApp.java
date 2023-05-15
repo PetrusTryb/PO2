@@ -10,22 +10,23 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Collections;
+
 import static com.almasb.fxgl.dsl.FXGLForKtKt.getInput;
 
-public class FirstApplication extends GameApplication {
+public class MyApp extends GameApplication {
     World world;
     @Override
     protected void initSettings(GameSettings gameSettings) {
-        gameSettings.setWidth(800);
-        gameSettings.setHeight(600);
+        gameSettings.setWidth(1500);
+        gameSettings.setHeight(900);
         gameSettings.setTitle("Gra w Życie");
         gameSettings.setCredits(Collections.singletonList("Piotr Trybisz (s193557)"));
-        gameSettings.setVersion("1234");
+        gameSettings.setVersion("Piotr Trybisz 193557");
     }
 
     @Override
     protected void initGame(){
-        world = World.getInstance("Hexagon",35, 25);
+        world = World.getInstance("Rectangle",35, 25);
         world.populateWorld();
     }
 
@@ -78,11 +79,14 @@ public class FirstApplication extends GameApplication {
             @Override
             protected void onAction() {
                 super.onAction();
-                FileOutputStream fileOutputStream = null;
+                FileOutputStream fileOutputStream;
                 try {
                     fileOutputStream = new FileOutputStream("save.bin");
                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
                     objectOutputStream.writeObject(world);
+                    objectOutputStream.close();
+                    fileOutputStream.close();
+                    world.log("World saved");
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -93,7 +97,7 @@ public class FirstApplication extends GameApplication {
             @Override
             protected void onAction() {
                 super.onAction();
-                FileInputStream fileInputStream = null;
+                FileInputStream fileInputStream;
                 try {
                     fileInputStream = new FileInputStream("save.bin");
                     ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
@@ -103,6 +107,15 @@ public class FirstApplication extends GameApplication {
                 }
             }
         }, KeyCode.L);
+
+        getInput().addAction(new UserAction("Switch world type") {
+            @Override
+            protected void onAction(){
+                super.onAction();
+                world = World.toggleType();
+                world.populateWorld();
+            }
+        }, KeyCode.F1);
     }
 
     public static void main(String[] args) {

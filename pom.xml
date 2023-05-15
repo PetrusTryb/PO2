@@ -75,7 +75,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>tk.ptrybisz.oop2.po2/tk.ptrybisz.oop2.FirstApplication</mainClass>
+                            <mainClass>tk.ptrybisz.oop2.po2/tk.ptrybisz.oop2.MyApp</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

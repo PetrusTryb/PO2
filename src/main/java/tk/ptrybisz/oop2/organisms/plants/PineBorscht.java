@@ -14,11 +14,12 @@ public class PineBorscht extends Plant{
         Vec2[] neighbours = world.getAllowedMoves();
         for(Vec2 neighbour : neighbours){
             Vec2 position = getPosition().add(neighbour);
-            if(world.isInBounds(position))
-                if(world.getOrganism(position) != null){
-                    if(world.getOrganism(position) instanceof Animal)
+            if(world.isInBounds(position)) {
+                if (world.getOrganism(position) != null) {
+                    if (world.getOrganism(position) instanceof Animal)
                         world.getOrganism(position).death();
                 }
+            }
         }
         super.action();
     }
